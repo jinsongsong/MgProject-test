@@ -15,13 +15,14 @@ let defaultIdentifier:String = "defaultcell"
 
 class HomePageViewController: BaseViewController{
     
-    var tableView:UITableView!
+    fileprivate var tableView:UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initSubViews()
     }
+    
 }
 extension HomePageViewController{
     
@@ -30,6 +31,7 @@ extension HomePageViewController{
         tableView = UITableView(frame: CGRect(x:0, y:0, width:kSCREEN_W, height:kSCREEN_H-(self.tabBarController?.tabBar.frame.height)!), style: .plain)
         tableView?.delegate=self;
         tableView?.dataSource=self;
+        tableView.tableFooterView=UIView();
         self.view.addSubview(tableView!);
         tableView? .register(UITableViewCell.self, forCellReuseIdentifier: homeIdentifier)
     }
@@ -52,5 +54,11 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
         cell.textLabel?.text="\(indexPath.row)"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        
+        self.navigationController?.pushViewController(DetailViewController(), animated: true);
     }
 }
