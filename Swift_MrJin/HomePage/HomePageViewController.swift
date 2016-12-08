@@ -21,6 +21,8 @@ class HomePageViewController: BaseViewController{
         super.viewDidLoad()
         
         initSubViews()
+        
+        createrHeaderView()
     }
     
 }
@@ -34,6 +36,11 @@ extension HomePageViewController{
         tableView.tableFooterView=UIView();
         self.view.addSubview(tableView!);
         tableView? .register(UITableViewCell.self, forCellReuseIdentifier: homeIdentifier)
+    }
+    
+    fileprivate func createrHeaderView(){
+        let scroller = JSSscrollView.init(frame: CGRect(x:0,y:0,width:kSCREEN_W,height:200))
+        tableView.tableHeaderView=scroller
     }
 }
 

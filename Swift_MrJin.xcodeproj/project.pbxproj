@@ -20,6 +20,7 @@
 		F3A2A2DC1DF11A8F00E2E343 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2A2DB1DF11A8F00E2E343 /* ThirdViewController.swift */; };
 		F3A2A2DE1DF120DF00E2E343 /* ConfigurationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2A2DD1DF120DF00E2E343 /* ConfigurationFile.swift */; };
 		F3A2A2E01DF177B700E2E343 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2A2DF1DF177B700E2E343 /* DetailViewController.swift */; };
+		F3B66E9F1DF80FCD00DFA070 /* JSSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B66E9E1DF80FCD00DFA070 /* JSSCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		F3A2A2DB1DF11A8F00E2E343 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		F3A2A2DD1DF120DF00E2E343 /* ConfigurationFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationFile.swift; sourceTree = "<group>"; };
 		F3A2A2DF1DF177B700E2E343 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F3B66E9E1DF80FCD00DFA070 /* JSSCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				F3A2A2D51DF118DA00E2E343 /* HomePageViewController.swift */,
 				F3A2A2DF1DF177B700E2E343 /* DetailViewController.swift */,
 				F3A165A31DF50942003A5F0E /* JSSscrollView.swift */,
+				F3B66E9E1DF80FCD00DFA070 /* JSSCollectionViewCell.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				F3A2A2D21DF110E300E2E343 /* MainViewController.swift in Sources */,
 				F3A2A2D91DF11A5000E2E343 /* SecondViewController.swift in Sources */,
 				F3A165A41DF50942003A5F0E /* JSSscrollView.swift in Sources */,
+				F3B66E9F1DF80FCD00DFA070 /* JSSCollectionViewCell.swift in Sources */,
 				F3A2A2DC1DF11A8F00E2E343 /* ThirdViewController.swift in Sources */,
 				F3A2A2DE1DF120DF00E2E343 /* ConfigurationFile.swift in Sources */,
 				F3A2A2D41DF1187F00E2E343 /* BaseViewController.swift in Sources */,
