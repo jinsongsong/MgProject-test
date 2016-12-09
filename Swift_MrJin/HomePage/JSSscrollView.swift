@@ -23,11 +23,11 @@ class JSSscrollView: UIView {
     override init(frame: CGRect){
         super.init(frame: frame)
         
-        imageArray=[UIColor.red,UIColor.orange]
+        imageArray=[UIColor.red,UIColor.orange,UIColor.blue]
         
         if (imageArray?.count)!>1 {
             imageArray?.append((imageArray?.first)!)
-            imageArray?.insert((imageArray?.last)!, at: 0)
+            imageArray?.insert((imageArray?[(imageArray?.count)!-2])!, at: 0)
         }
         
         initSubViews()
@@ -125,13 +125,13 @@ extension JSSscrollView{
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         var currentPage = Int(scrollView.contentOffset.x / kSCREEN_W)
-        //[UIColor.orange UIColor.red,UIColor.orange UIColor.red]
-        if currentPage==0 { //滚动到第一个
+        
+        if currentPage==0 { //滚动到第一个 向左滚
             collectionView.scrollToItem(at: IndexPath.init(row: (imageArray?.count)!-2, section: 0), at: .centeredHorizontally, animated: false)
             currentPage=(imageArray?.count)!-2;
         }
         
-        if currentPage == (imageArray?.count)!-1 { //滚动到最后一个
+        if currentPage == (imageArray?.count)!-1 { //滚动到最后一个 向右滚
             collectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: false)
             currentPage=1;
         }
