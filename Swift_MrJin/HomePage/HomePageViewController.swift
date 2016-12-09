@@ -40,6 +40,7 @@ extension HomePageViewController{
     
     fileprivate func createrHeaderView(){
         let scroller = JSSscrollView.init(frame: CGRect(x:0,y:0,width:kSCREEN_W,height:200))
+        scroller.imageArray=[UIColor.orange,UIColor.black,UIColor.yellow,UIColor.brown]
         tableView.tableHeaderView=scroller
     }
 }

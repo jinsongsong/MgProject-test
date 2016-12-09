@@ -9,18 +9,21 @@
 import UIKit
 
 class JSSCollectionViewCell: UICollectionViewCell {
+    
+    //声明全局
+    fileprivate var imageView:UIImageView!
+    
     override init(frame:CGRect){
+        
         super.init(frame: frame)
+        
         initSubViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //声明全局
-    fileprivate var imageView:UIImageView!
-    
+
     //赋值
     func setImage(imageArr:[AnyObject], idx:NSInteger){
         //imageView.image=UIImage.init(named: "\(imageArr[idx])")

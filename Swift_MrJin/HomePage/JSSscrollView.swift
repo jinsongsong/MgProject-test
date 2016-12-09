@@ -13,24 +13,40 @@ class JSSscrollView: UIView {
     fileprivate var collectionView:UICollectionView!
     
     //MARK: 属性
-    fileprivate var pageControl:UIPageControl?
+    fileprivate var pageControl:JSSPageControl?
     fileprivate var timer:Timer?
-    fileprivate var index:Int = 1
-    
-    //MARK: 图片数组
-    public var imageArray:[AnyObject]?
+    fileprivate var index:Int = 0
     
     override init(frame: CGRect){
         super.init(frame: frame)
         
-        imageArray=[UIColor.red,UIColor.orange,UIColor.blue]
-        
-        if (imageArray?.count)!>1 {
-            imageArray?.append((imageArray?.first)!)
-            imageArray?.insert((imageArray?[(imageArray?.count)!-2])!, at: 0)
-        }
+        imageArray=[UIColor.orange] //设置初始值
         
         initSubViews()
+    }
+    
+    //MARK: 图片数组set方法
+    var imageArray:[AnyObject]?{
+        didSet{
+            
+            index = 0
+            
+            // 图片以 3 1 2 3 1 规则放置
+            if (imageArray?.count)!>1 {
+                imageArray?.append((imageArray?.first)!)
+                imageArray?.insert((imageArray?[(imageArray?.count)!-2])!, at: 0)
+            }
+            
+            timer?.invalidate() //先销毁定时器 再创建
+            
+            if (imageArray?.count)!>1 {
+                startTimer()
+            }
+            pageControl?.currentPage=0
+            pageControl?.numberOfPages=(imageArray?.count)!-2
+            
+            collectionView.reloadData()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,24 +78,25 @@ extension JSSscrollView:UICollectionViewDelegate,UICollectionViewDataSource{
         addSubview(collectionView!)
         
         //添加pageControl
-        pageControl=UIPageControl.init(frame: CGRect(x:(bounds.width-150)/2, y:(bounds.height-40), width: 150, height: 40))
-        pageControl?.numberOfPages=(imageArray?.count)!-2
+        pageControl=JSSPageControl.init(frame: CGRect(x:(bounds.width-150)/2, y:(bounds.height-40), width: 150, height: 40))
         pageControl?.currentPage=0
+        pageControl?.numberOfPages=(imageArray?.count)!-2
         pageControl?.currentPageIndicatorTintColor=UIColor.lightGray
         pageControl?.pageIndicatorTintColor=UIColor.darkGray
+        pageControl?.hidesForSinglePage=true
         addSubview(pageControl!)
         
         if (imageArray?.count)!>1 {
             //初始设置第二张位置
             collectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: false)
-            
+     
             startTimer()
         }
     }
     
     fileprivate func startTimer(){
         
-        timer = Timer.init(timeInterval: 2, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.init(timeInterval: 3, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         let runloop = RunLoop.current
         runloop.add(timer!, forMode: RunLoopMode.commonModes)
     }
@@ -97,7 +114,7 @@ extension JSSscrollView:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! JSSCollectionViewCell
         
-        cell .setImage(imageArr: imageArray!, idx: indexPath.item)
+        cell.setImage(imageArr: imageArray!, idx: indexPath.item)
         
         return cell
     }
