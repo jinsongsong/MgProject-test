@@ -19,6 +19,6 @@ class DetailViewController: BaseViewController {
     }
     
     deinit { //类似oc的dealloc方法
-        print(class_getName(UIViewController.self))
+        //print(class_getName(UIViewController.self))
     }
 }

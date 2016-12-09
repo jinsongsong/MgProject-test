@@ -65,8 +65,16 @@ extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        //print(indexPath.row)
         
         self.navigationController?.pushViewController(DetailViewController(), animated: true);
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y > -64 && scrollView.contentOffset.y < 0 {
+            
+            self.navigationController?.navigationBar.subviews[0].alpha = 1 - fabs(scrollView.contentOffset.y/100.0)
+        }
     }
 }

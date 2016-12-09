@@ -15,7 +15,7 @@ class JSSscrollView: UIView {
     //MARK: 属性
     fileprivate var pageControl:JSSPageControl?
     fileprivate var timer:Timer?
-    fileprivate var index:Int = 0
+    fileprivate var index:Int = 1
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -29,7 +29,7 @@ class JSSscrollView: UIView {
     var imageArray:[AnyObject]?{
         didSet{
             
-            index = 0
+            index = 1
             
             // 图片以 3 1 2 3 1 规则放置
             if (imageArray?.count)!>1 {
@@ -40,6 +40,9 @@ class JSSscrollView: UIView {
             timer?.invalidate() //先销毁定时器 再创建
             
             if (imageArray?.count)!>1 {
+                //初始设置第二张位置
+                collectionView.scrollToItem(at: IndexPath.init(row: 1, section: 0), at: .centeredHorizontally, animated: false)
+                
                 startTimer()
             }
             pageControl?.currentPage=0
