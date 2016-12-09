@@ -22,13 +22,10 @@ class JSSCollectionViewCell: UICollectionViewCell {
     fileprivate var imageView:UIImageView!
     
     //赋值
-    func setImage(imageArr:NSArray, idx:NSInteger){
+    func setImage(imageArr:[AnyObject], idx:NSInteger){
         //imageView.image=UIImage.init(named: "\(imageArr[idx])")
         
-        var arr=[UIColor.blue,UIColor.red,UIColor.orange,UIColor.blue,UIColor.red];
-        
-        imageView.backgroundColor=arr[idx];
-        
+        imageView.backgroundColor=imageArr[idx] as? UIColor;
     }
 }
 extension JSSCollectionViewCell{
