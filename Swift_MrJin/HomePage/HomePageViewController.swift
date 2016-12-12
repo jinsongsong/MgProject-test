@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 let homeIdentifier:String = "homecell"
 let scrollIdentifier:String = "scrollcell"
@@ -23,8 +24,15 @@ class HomePageViewController: BaseViewController{
         initSubViews()
         
         createrHeaderView()
+        
+         _ = NetworkingTool.shareNetwork.GetMethodRequest
+        
+        
+        let url = "http://c.m.163.com/nc/video/Tlist/T1464751736259/0-10.html"
+        Alamofire.request(url, method: .get).response(completionHandler: { (result) in
+            //print(result);
+        })
     }
-    
 }
 extension HomePageViewController{
     
