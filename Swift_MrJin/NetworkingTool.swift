@@ -16,18 +16,34 @@ class NetworkingTool: NSObject {
     private override init() {}
     
     
-    func GetMethodRequest(_ finished:(_ recommendTopics: String) -> ()){
-
-        let url = "http://c.m.163.com/nc/video/Tlist/T1464751736259/0-10.html"
+    func GetMethodRequest(urlStr:String,success: @escaping (_ response :[String : AnyObject])->()){
         
-         Alamofire.request(url, method: .get).response(completionHandler: { (result) in
+        Alamofire.request(urlStr,method: .get).responseJSON { (dataResponse) in
             
-            print(result);
+            guard dataResponse.result.isSuccess else{
+                //失败
+                print("failure")
+                return
+            }
             
-            //finished(recommendTopics: result)
-         })
-        
-        
-        
+            if let json = dataResponse.result.value{  //判断是否成功
+                
+                success(json as! [String : AnyObject])
+                
+            }else{
+                
+                //失败
+                
+            }
+//            //判断是否成功
+//            switch dataResponse.result{
+//            case .success:
+//                print("success")
+//                break
+//            case .failure:
+//                print("failure")
+//                break
+//            }
+        }
     }
 }

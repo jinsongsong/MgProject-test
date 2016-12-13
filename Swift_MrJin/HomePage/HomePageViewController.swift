@@ -25,13 +25,40 @@ class HomePageViewController: BaseViewController{
         
         createrHeaderView()
         
-         _ = NetworkingTool.shareNetwork.GetMethodRequest
-        
-        
         let url = "http://c.m.163.com/nc/video/Tlist/T1464751736259/0-10.html"
-        Alamofire.request(url, method: .get).response(completionHandler: { (result) in
-            //print(result);
-        })
+        
+        NetworkingTool.shareNetwork.GetMethodRequest(urlStr :url) {(json) in
+            print(json)
+        }
+        
+        
+        
+        Alamofire.request(url, method:.get).responseJSON { (response) in
+//            print(response.request ?? "231");
+//            print(response.response ?? "231");
+//            print(response.data ?? "231");
+//            print(response.timeline); //请求时间
+//            print(response.result);  //请求成功失败信息
+//            
+//            switch response.result{
+//            
+//            case .success:
+//                print("success")
+//                break
+//            case .failure:
+//                print("failure")
+//                break
+//            }
+//            
+//            if response.result.isSuccess{
+//                print("---JSON: \(response)")
+//            }
+//            
+//            if let JSON = response.result.value {
+//                print("JSON: \(JSON)")
+//            }
+        }
+        
     }
 }
 extension HomePageViewController{
