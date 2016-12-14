@@ -16,12 +16,12 @@ class NetworkingTool: NSObject {
     private override init() {}
     
     
-    func GetMethodRequest(urlStr:String,success: @escaping (_ response :[String : AnyObject])->()){
+    func GetMethodRequest(urlStr:String, parameters:[String : AnyObject], success: @escaping (_ response :[String : AnyObject])->()){
         
-        Alamofire.request(urlStr,method: .get).responseJSON { (dataResponse) in
+        Alamofire.request(urlStr,method: .get, parameters:parameters).responseJSON { (dataResponse) in
             
             guard dataResponse.result.isSuccess else{
-                //失败
+                //失败 Do Something
                 print("failure")
                 return
             }

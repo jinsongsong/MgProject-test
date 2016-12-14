@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 let homeIdentifier:String = "homecell"
 let scrollIdentifier:String = "scrollcell"
@@ -17,6 +18,7 @@ let defaultIdentifier:String = "defaultcell"
 class HomePageViewController: BaseViewController{
     
     fileprivate var tableView:UITableView!
+    fileprivate var dataArr = [HomeModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +27,31 @@ class HomePageViewController: BaseViewController{
         
         createrHeaderView()
         
-        let url = "http://c.m.163.com/nc/video/Tlist/T1464751736259/0-10.html"
         
-        NetworkingTool.shareNetwork.GetMethodRequest(urlStr :url) {(json) in
-            print(json)
+        let url = BASE_URL + "article/category/get_subscribed/v1/?"
+        
+        let params = ["device_id": "6096495334","aid": 13,"iid": "5034850950"] as [String : Any]
+        
+        NetworkingTool.shareNetwork.GetMethodRequest(urlStr :url,parameters:params as [String : AnyObject]) {(response) in
+            
+            let json=JSON(response)["data"].dictionary
+            
+            if let data=json?["data"]?.arrayObject{
+                
+                for dict in data{
+                    
+                    let model = HomeModel(dict: dict as! [String : AnyObject])
+            
+                    self.dataArr.append(model)
+                }
+                print(data)
+                self.tableView.reloadData()
+            }
         }
         
         
         
-        Alamofire.request(url, method:.get).responseJSON { (response) in
+//        Alamofire.request(url, method:.get).responseJSON { (response) in
 //            print(response.request ?? "231");
 //            print(response.response ?? "231");
 //            print(response.data ?? "231");
@@ -57,7 +75,7 @@ class HomePageViewController: BaseViewController{
 //            if let JSON = response.result.value {
 //                print("JSON: \(JSON)")
 //            }
-        }
+//        }
         
     }
 }
@@ -65,7 +83,7 @@ extension HomePageViewController{
     
     fileprivate func initSubViews(){
     
-        tableView = UITableView(frame: CGRect(x:0, y:0, width:kSCREEN_W, height:kSCREEN_H-(self.tabBarController?.tabBar.frame.height)!), style: .plain)
+        tableView = UITableView(frame: CGRect(x:0, y:0, width:kSCREEN_W, height:kSCREEN_H), style: .plain)
         tableView?.delegate=self;
         tableView?.dataSource=self;
         tableView.tableFooterView=UIView();
@@ -83,26 +101,35 @@ extension HomePageViewController{
 extension HomePageViewController:UITableViewDelegate,UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2;
+        return 1;
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6;
+        return self.dataArr.count;
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
         let cell = tableView.dequeueReusableCell(withIdentifier: homeIdentifier, for: indexPath) 
         
-        cell.textLabel?.text="\(indexPath.row)"
+        cell.selectionStyle=UITableViewCellSelectionStyle.none
+        
+        let model = dataArr[indexPath.row]
+        
+        cell.textLabel?.text=model.name
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print(indexPath.row)
         
-        self.navigationController?.pushViewController(DetailViewController(), animated: true);
+        let model = dataArr[indexPath.row]
+        
+        let vc = DetailViewController()
+        
+        vc.titleStr=model.name
+        
+        self.navigationController?.pushViewController(vc, animated: true);
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

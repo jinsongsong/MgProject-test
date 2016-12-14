@@ -10,12 +10,16 @@ import UIKit
 
 class DetailViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.title="详情页"
-        view.backgroundColor=UIColor.orange;
-        //let vc = HomePageViewController();
+    var titleStr: String?
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        self.navigationItem.title=titleStr
+        
+        view.backgroundColor=UIColor.orange;
+        
     }
     
     deinit { //类似oc的dealloc方法
